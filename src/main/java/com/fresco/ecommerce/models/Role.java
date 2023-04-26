@@ -11,8 +11,9 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer roleId;
     private String role;
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    @ManyToOne
+    @JoinColumn(name = "roles", nullable = false)
+    private User user;
 
     public Role() {
         super();

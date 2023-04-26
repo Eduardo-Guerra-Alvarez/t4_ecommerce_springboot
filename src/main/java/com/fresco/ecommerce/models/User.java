@@ -14,12 +14,7 @@ public class User {
 	private String password;
 
 	// Implement Roles
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "UserRoles",
-			joinColumns = @JoinColumn(name = "userId"),
-			inverseJoinColumns = @JoinColumn(name = "role")
-	)
+	@OneToMany(mappedBy = "user")
 	private Set<Role> roles;
 
 	public User() {

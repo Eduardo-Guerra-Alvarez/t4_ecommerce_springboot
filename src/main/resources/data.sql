@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS "CARTPRODUCT" CASCADE;
 DROP TABLE IF EXISTS "ROLE" CASCADE;
 
 
+
 CREATE TABLE User(
     userId int AUTO_INCREMENT PRIMARY KEY,
     username text,
@@ -45,13 +46,8 @@ CREATE TABLE Role(
     role text
 );
 
-CREATE TABLE UserRole(
-    userId int,
-    role int
-);
-
 ALTER TABLE User
-ADD FOREIGN KEY (roles) REFERENCES UserRole(userId);
+ADD FOREIGN KEY (roles) REFERENCES Role(roleId);
 ALTER TABLE Product
 ADD FOREIGN KEY (Category) REFERENCES Category(categoryId);
 ALTER TABLE Product
@@ -72,18 +68,13 @@ INSERT INTO Category (categoryName) VALUES ('Medicines');
 INSERT INTO Role (role) VALUES ('CONSUMER');
 INSERT INTO Role (role) VALUES ('SELLER');
 
-INSERT INTO User (username, password) VALUES ('jack', 'pass_word');
-INSERT INTO User (username, password) VALUES ('bob', 'pass_word');
-INSERT INTO User (username, password) VALUES ('apple', 'pass_word');
-INSERT INTO User (username, password) VALUES ('glaxo', 'pass_word');
+INSERT INTO User (username, password, roles) VALUES ('jack', 'pass_word', 1);
+INSERT INTO User (username, password, roles) VALUES ('bob', 'pass_word', 1);
+INSERT INTO User (username, password, roles) VALUES ('apple', 'pass_word', 2);
+INSERT INTO User (username, password, roles) VALUES ('glaxo', 'pass_word', 2);
 
 INSERT INTO Cart (totalAmount, user) VALUES (20, 1);
 INSERT INTO Cart (totalAmount, user) VALUES (0, 2);
-
-INSERT INTO UserRole (userId, role) VALUES (1, 1);
-INSERT INTO UserRole (userId, role) VALUES (2, 1);
-INSERT INTO UserRole (userId, role) VALUES (3, 2);
-INSERT INTO UserRole (userId, role) VALUES (4, 2);
 
 INSERT INTO Product (price, productName, Category, seller) VALUES (
 29190, 'Apple iPad 10.2 8th Gen WiFi iOS Tablet', 2, 3);
