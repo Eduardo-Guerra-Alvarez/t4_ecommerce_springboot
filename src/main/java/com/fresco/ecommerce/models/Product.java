@@ -1,13 +1,21 @@
 package com.fresco.ecommerce.models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 public class Product {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer productId;
 	private String productName;
 	private Double price;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "user")
 	private User seller;
+
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "category")
 	private Category category;
 
 	public Product() {

@@ -2,22 +2,31 @@ package com.fresco.ecommerce.models;
 
 import java.util.Set;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 public class User {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer userId;
 	private String username;
 	private String password;
 
 	// Implement Roles
-	private Set<Object> roles;
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "UserRoles",
+			joinColumns = @JoinColumn(name = "userId"),
+			inverseJoinColumns = @JoinColumn(name = "role")
+	)
+	private Set<Role> roles;
 
 	public User() {
 		super();
 	}
 
-	public User(String username, String password, Set<Object> roles) {
+	public User(String username, String password, Set<Role> roles) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -48,11 +57,11 @@ public class User {
 		this.password = password;
 	}
 
-	public Set<Object> getRoles() {
+	public Set<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Object> roles) {
+	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 

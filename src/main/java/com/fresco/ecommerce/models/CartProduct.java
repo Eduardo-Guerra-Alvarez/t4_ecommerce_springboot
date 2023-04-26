@@ -1,11 +1,18 @@
 package com.fresco.ecommerce.models;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
 public class CartProduct {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer cpId;
+	@ManyToOne
+	@JoinColumn(name = "cartProducts", nullable = false)
 	private Cart cart;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "product")
 	private Product product;
 	private Integer quantity = 1;
 
